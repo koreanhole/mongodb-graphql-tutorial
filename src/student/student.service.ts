@@ -31,4 +31,15 @@ export class StudentService {
 
     return this.studentRepository.save(student);
   }
+
+  async getManyStudentsById(studentIds: string[]): Promise<Student[]> {
+    return this.studentRepository.find({
+      where: {
+        id: {
+          // $: mongodb annotation -> array in
+          $in: studentIds,
+        },
+      },
+    });
+  }
 }
